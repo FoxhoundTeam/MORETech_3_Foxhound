@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
 
-class QraphsConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class GraphsConfig(AppConfig):
     name = 'graphs'

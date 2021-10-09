@@ -1,9 +1,13 @@
 from django.db import models
 
 
-# Create your models here.
-class TypeElements(models.Model):
-    name = models.CharField(max_length=40)
+Type_OF_ELEMENTS = (
+        ('N', 'Number'),
+        ('S', 'String'),
+        ('D', 'Date'),
+        ('T', 'DateTime'),
+        ('J', 'JOINNumber'),
+    )
 
 
 # Create your models here.
@@ -18,23 +22,17 @@ class Operation(models.Model):
     description = models.TextField()
     number_of_elements = models.CharField(max_length=1, choices=NUMBER_OF_ELEMENTS)
     icon = models.CharField(max_length=256)
-    type_elements = models.ManyToManyField(TypeElements)
-    type_output = models.ManyToManyField(TypeElements)
+    type_elements = models.CharField(max_length=1, choices=Type_OF_ELEMENTS)
+    type_output = models.CharField(max_length=1, choices=Type_OF_ELEMENTS)
     json_data = models.TextField()
-
-
-class Params(models.Model):
-    name = models.CharField(max_length=20)
-    # Обязательность параметра
-    type_object = models.ForeignKey(TypeElements, on_delete=models.CASCADE)
-    obligatory = models.BooleanField()
 
 
 class Functions(models.Model):
     name = models.CharField(max_length=40)
-    params = models.ManyToManyField(Params)
+    params = models.TextField()
+    description = models.TextField(default='')
     icon = models.CharField(max_length=256)
-    type_output = models.ManyToManyField(TypeElements)
+    type_output = models.CharField(max_length=1, choices=Type_OF_ELEMENTS)
     owner = models.CharField(max_length=256)
     owner_icon = models.CharField(max_length=256)
     price = models.IntegerField()
@@ -45,5 +43,6 @@ class DataTable(models.Model):
     icon = models.CharField(max_length=256)
     owner = models.CharField(max_length=256)
     owner_icon = models.CharField(max_length=256)
-    columns = models.ManyToManyField(TypeElements)
+    description = models.TextField()
+    columns = models.TextField()
     price = models.IntegerField()
