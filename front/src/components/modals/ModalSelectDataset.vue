@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="show" max-width="800px" @click:outside="closeModal()">
+  <v-dialog v-model="show" max-width="1000px" @click:outside="closeModal()">
     <v-card>
       <template>
         <v-card-title>
           <span class="text-h5">Выбрать датасет</span>
         </v-card-title>
-        <v-card-text> Тут датасеты </v-card-text>
+        <v-card-text><data-set-collection/></v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeModal()"> Ок </v-btn>
@@ -15,7 +15,9 @@
   </v-dialog>
 </template>
 <script>
+import DataSetCollection from '../DataSetCollection.vue';
 export default {
+  components: { DataSetCollection },
   data() {
     return {};
   },

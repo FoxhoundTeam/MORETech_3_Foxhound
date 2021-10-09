@@ -14,9 +14,17 @@ const store = new Vuex.Store({
         isAuthenticated: false,
         operations: [],
         tableComponents: {},
-        selectedTables: [
+        projectName: "Default",
+        datasetitems: [
             {
-                name: 'Users',
+                name: 'Датасет 1',
+                description: 'Описание датасета 1',
+                source: 'vtb',
+                icon: 'default_dataset_icon.png',
+                size: '100000',
+                isfree: true,
+                tags: ['транзакции', '2021', 'втб', 'анонимизированный'],
+                loaddate: "2021-04-12",
                 fields: [
                     {
                         key: 'id',
@@ -41,7 +49,14 @@ const store = new Vuex.Store({
                 ]
             },
             {
-                name: 'Accounts',
+                name: 'Датасет 2',
+                description: 'Описание датасета 2',
+                source: 'datahub',
+                icon: 'default_dataset_icon.png',
+                size: '1000',
+                isfree: false,
+                tags: ['кредиты', '2019', 'анонимизированный'],
+                loaddate: "2020-11-15",
                 fields: [
                     {
                         key: 'id',
@@ -65,8 +80,12 @@ const store = new Vuex.Store({
                     },
                 ]
             }
-        ],
-        projectName: "Default",
+        ]
+    },
+    getters: {
+        selectedTables(state) {
+            return state.datasetitems.filter(v => v.selected == true);
+        }
     },
     mutations: {
         setUser(state, user) {
@@ -89,16 +108,25 @@ const store = new Vuex.Store({
             state.tableComponents[table.name] = createComponentTable(table.name, table.fields);
         },
         addSelectedTable(state, table) {
-            if (state.selectedTables.findIndex(v => v.name == table.name) != -1) {
+            if (state.datasetitems.filter(v => v.selected == true).findIndex(v => v.name == table.name) != -1) {
                 return
             }
-            state.selectedTables.push(table);
+            table.selected = true;
+            Vue.set(state.datasetitems, state.datasetitems.findIndex(v => v.name == table.name), table)
+            // state.selectedTables.push(table);
         },
         removeSelectedTable(state, name) {
-            Vue.delete(state.selectedTables, state.selectedTables.findIndex(v => v.name == name));
+            let ind = state.datasetitems.findIndex(v => v.name == name);
+            let table = state.datasetitems[ind];
+            table.selected = false;
+            Vue.set(state.datasetitems, ind, table)
+            // Vue.delete(state.selectedTables, state.selectedTables.findIndex(v => v.name == name));
         },
-        setProjectName(state, name){
+        setProjectName(state, name) {
             state.projectName = name;
+        },
+        setDatasetItems(state, items) {
+            state.datasetitems = items;
         }
     },
     actions: {

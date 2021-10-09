@@ -134,14 +134,14 @@ export default {
         this.$store.commit("setProjectName", value);
       },
     },
-    selectedTables(){
-      return this.$store.state.selectedTables
-    }
+    selectedTables() {
+      return this.$store.getters.selectedTables;
+    },
   },
   watch: {
     async selectedTables() {
       await this.drawTables();
-    }
+    },
   },
   async mounted() {
     var container = this.$refs["rete"];
@@ -173,30 +173,36 @@ export default {
     removeNode() {
       for (const selected of this.editor.selected.list) {
         if (
-          this.$store.state.selectedTables.findIndex(
-            (v) => v.name == selected.name
-          ) != -1
+          this.selectedTables.findIndex((v) => v.name == selected.name) != -1
         ) {
           this.$store.commit("removeSelectedTable", selected.name);
-          this.$delete(this.drawedTables, this.drawedTables.findIndex(v => v == selected.name))
+          this.$delete(
+            this.drawedTables,
+            this.drawedTables.findIndex((v) => v.name == selected.name)
+          );
         }
         this.editor.removeNode(selected);
       }
     },
     async drawTables() {
+      for (let table of this.drawedTables) {
+        if (this.selectedTables.findIndex((v) => v.name == table.name) == -1) {
+          this.editor.removeNode(table.node);
+          this.$delete(
+            this.drawedTables,
+            this.drawedTables.findIndex((v) => v.name == table.name)
+          );
+        }
+      }
+      let index = this.drawedTables.length;
       for (let table of this.selectedTables) {
-        if (this.drawedTables.findIndex(v => v == table.name) != -1) 
-          continue
-        await this.addTable(table);
-        this.drawedTables.push(table.name);
+        if (this.drawedTables.findIndex((v) => v.name == table.name) != -1) continue;
+        await this.addTable(table, index);
+        index += 1;
       }
     },
-    async addTable(table) {
-      if (
-        this.drawedTables.findIndex(
-          (v) => v.name == table.name
-        ) != -1
-      )
+    async addTable(table, index) {
+      if (this.drawedTables.findIndex((v) => v.name == table.name) != -1)
         return;
       if (!this.$store.state.tableComponents[table.name])
         this.$store.commit("addTableComponent", table);
@@ -208,9 +214,10 @@ export default {
         console.log("already registered");
       }
       let node = await tableComponent.createNode();
-      node.position = [10, 100];
+      node.position = [10, 100 * index];
       this.$store.commit("addSelectedTable", table);
       await this.editor.addNode(node);
+      this.drawedTables.push({name: table.name, node: node});
     },
   },
 };

@@ -17,6 +17,14 @@
             <v-list-item-title>Датасеты</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link to="/editor">
+          <v-list-item-icon>
+            <v-icon>mode_edit</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Редактор</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
         <v-list-group prepend-icon="person">
           <template v-slot:activator>
