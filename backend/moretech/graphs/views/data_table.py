@@ -8,24 +8,23 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
 from django.core import serializers
 
-from ..models import Functions
+from ..models import DataTable
 from main.response_processing import get_success_response
 
 
 class UserView(APIView):
     def get(self, request):
         functions = []
-        for function in Functions.objects.all():
+        for data_table in DataTable.objects.all():
             functions.append({
-                'id': function.id,
-                'name': function.name,
-                'description': function.description,
-                'params': function.params,
-                'icon': function.icon,
-                'owner': function.owner,
-                'owner_icon': function.owner_icon,
-                'type_output': function.type_output,
-                'price': function.price,
+                'id': data_table.id,
+                'name': data_table.name,
+                'icon': data_table.icon,
+                'owner': data_table.owner,
+                'owner_icon': data_table.owner_icon,
+                'description': data_table.description,
+                'fields': json.loads(data_table.fields),
+                'price': data_table.price,
             })
         return get_success_response({
             'functions': functions,

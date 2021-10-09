@@ -15,12 +15,11 @@ class UserView(APIView):
         for operation in Operation.objects.all():
             operations.append({
                 'name': operation.name,
-                'description': operation.description,
-                'number_of_elements': operation.number_of_elements,
                 'icon': operation.icon,
-                'type_elements': operation.type_elements,
-                'type_output': operation.type_output,
-                'json_data': operation.json_data,
+                'type_': operation.type_,
+                'many': operation.many,
+                'inputs': json.load(operation.inputs),
+                'type_output': json.load(operation.outputs),
             })
         return get_success_response({
             'operations': operations,
