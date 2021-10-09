@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import DataTable, Functions, Operation, TypeElements
+from .models import DataTable, Functions, Operation
 
 
 @admin.register(DataTable)
@@ -16,9 +16,4 @@ class FunctionsRegistered(admin.ModelAdmin):
 
 @admin.register(Operation)
 class OperationRegistered(admin.ModelAdmin):
-    list_display = ["name"]
-
-
-@admin.register(TypeElements)
-class TypeElementsRegistered(admin.ModelAdmin):
     list_display = ["name"]
