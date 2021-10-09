@@ -41,7 +41,7 @@ class Feature(models.Model):
 
 
 class DataTable(models.Model):
-    title = models.CharField(max_length=40)
+    name = models.CharField(max_length=40)
     description = models.TextField()
     icon = models.CharField(max_length=256)
     source = models.CharField(max_length=256)

@@ -18,7 +18,7 @@ class UserView(APIView):
         for data_table in DataTable.objects.all():
             data_tables.append({
                 'id': data_table.id,
-                'title': data_table.title,
+                'name': data_table.name,
                 'description': data_table.description,
                 'icon': data_table.icon,
                 'source': data_table.source,
