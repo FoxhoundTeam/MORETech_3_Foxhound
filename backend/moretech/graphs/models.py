@@ -1,13 +1,44 @@
 from django.db import models
-
+from rest_framework import serializers
 
 Type_OF_ELEMENTS = (
-        ('N', 'Number'),
-        ('S', 'String'),
-        ('D', 'Date'),
-        ('T', 'DateTime'),
-        ('J', 'JOINNumber'),
-    )
+    ('N', 'Number'),
+    ('S', 'String'),
+    ('D', 'Date'),
+    ('T', 'DateTime'),
+    ('J', 'JOINNumber'),
+)
+
+
+class OperationSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=20)
+    description = serializers.CharField()
+    number_of_elements = serializers.CharField()
+    icon = serializers.CharField(max_length=256)
+    type_elements = serializers.CharField(max_length=1)
+    type_output = serializers.CharField(max_length=1)
+    json_data = serializers.CharField()
+
+
+class FunctionsSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=20)
+    description = serializers.CharField()
+    params = serializers.CharField()
+    icon = serializers.CharField(max_length=256)
+    owner = serializers.CharField(max_length=256)
+    owner_icon = serializers.CharField(max_length=256)
+    type_output = serializers.CharField(max_length=1)
+    price = serializers.IntegerField()
+
+
+class DataTableSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=20)
+    icon = serializers.CharField(max_length=256)
+    owner = serializers.CharField(max_length=256)
+    owner_icon = serializers.CharField(max_length=256)
+    description = serializers.CharField()
+    columns = serializers.CharField()
+    price = serializers.IntegerField()
 
 
 # Create your models here.
