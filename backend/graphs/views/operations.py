@@ -21,10 +21,10 @@ class UserView(APIView):
             operations.append({
                 'name': operation.name,
                 'icon': operation.icon,
-                'type_': data.get(operation.type_element, 'join'),
+                'type': data.get(operation.type_element, 'join'),
                 'many': operation.many,
                 'inputs': json.loads(operation.inputs),
-                'type_output': json.loads(operation.outputs),
+                'outputs': json.loads(operation.outputs),
             })
         return get_success_response({
             'operations': operations,
