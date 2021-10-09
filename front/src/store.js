@@ -2,6 +2,8 @@ import Vuex from 'vuex'
 import http from './http'
 import Axios from 'axios'
 import Vue from 'vue'
+import { createComponentOperation, COMPONENTS, createComponentTable } from './Graph'
+
 
 Vue.use(Vuex)
 
@@ -10,6 +12,61 @@ const store = new Vuex.Store({
     state: {
         user: null,
         isAuthenticated: false,
+        operations: [],
+        tableComponents: {},
+        selectedTables: [
+            {
+                name: 'Users',
+                fields: [
+                    {
+                        key: 'id',
+                        name: 'id (number)',
+                        socket: 'number',
+                    },
+                    {
+                        key: 'first_name',
+                        name: 'first_name (string)',
+                        socket: 'string',
+                    },
+                    {
+                        key: 'age',
+                        name: 'age (number)',
+                        socket: 'number',
+                    },
+                    {
+                        key: 'gender',
+                        name: 'gender (string)',
+                        socket: 'string',
+                    },
+                ]
+            },
+            {
+                name: 'Accounts',
+                fields: [
+                    {
+                        key: 'id',
+                        name: 'id (number)',
+                        socket: 'number',
+                    },
+                    {
+                        key: 'user_id',
+                        name: 'user_id (number)',
+                        socket: 'number',
+                    },
+                    {
+                        key: 'balance',
+                        name: 'balance (number)',
+                        socket: 'number',
+                    },
+                    {
+                        key: 'date_update',
+                        name: 'date_update (date)',
+                        socket: 'date',
+                    },
+                ]
+            }
+        ],
+        projectName: "Default",
     },
     mutations: {
         setUser(state, user) {
@@ -18,6 +75,31 @@ const store = new Vuex.Store({
         setAuthenticated(state, isAuthenticated) {
             state.isAuthenticated = isAuthenticated;
         },
+        setOperations(state, operations) {
+            for (const operation of operations) {
+                state.operations.push(
+                    {
+                        ...operation,
+                        component: createComponentOperation(COMPONENTS[operation.type], operation.name, operation.inputs, operation.outputs, operation.many),
+                    }
+                )
+            }
+        },
+        addTableComponent(state, table) {
+            state.tableComponents[table.name] = createComponentTable(table.name, table.fields);
+        },
+        addSelectedTable(state, table) {
+            if (state.selectedTables.findIndex(v => v.name == table.name) != -1) {
+                return
+            }
+            state.selectedTables.push(table);
+        },
+        removeSelectedTable(state, name) {
+            Vue.delete(state.selectedTables, state.selectedTables.findIndex(v => v.name == name));
+        },
+        setProjectName(state, name){
+            state.projectName = name;
+        }
     },
     actions: {
         async addItem(context, data) {

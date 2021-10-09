@@ -31,12 +31,22 @@ let opts = {
       },
     },
     {
-      path: "/graph",
-      name: "Graph",
+      path: "/editor",
+      name: "Editor",
       component: () => import('../views/Editor.vue'),
       meta: {
         requiresAuth: false
       },
+      children: [
+        {
+          path: "add_dataset",
+          name: "SelectDataset",
+          component: () => import('../components/modals/ModalSelectDataset.vue'),
+          meta: {
+            requiresAuth: false
+          },
+        }
+      ]
     },
   ],
   linkExactActiveClass: 'active'
