@@ -35,6 +35,9 @@ class Functions(models.Model):
     params = models.ManyToManyField(Params)
     icon = models.CharField(max_length=256)
     type_output = models.ManyToManyField(TypeElements)
+    owner = models.CharField(max_length=256)
+    owner_icon = models.CharField(max_length=256)
+    price = models.IntegerField()
 
 
 class DataTable(models.Model):
