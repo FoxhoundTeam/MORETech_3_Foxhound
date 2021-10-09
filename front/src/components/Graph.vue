@@ -22,15 +22,6 @@
       >
         <v-icon>{{ operation.icon }}</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>join_right</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>join_full</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>join_inner </v-icon>
-      </v-btn>
       <v-divider class="mx-5" vertical></v-divider>
       <v-btn
         elevation="0"

@@ -34,3 +34,4 @@ class DataTable(models.Model):
     tag = models.TextField()
     loaddate = models.CharField(max_length=256)
     fields = models.TextField()
+    price = models.IntegerField(default=0)

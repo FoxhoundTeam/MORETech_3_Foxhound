@@ -16,9 +16,10 @@ class UserView(APIView):
                 'icon': data_table.icon,
                 'source': data_table.source,
                 'size': data_table.size,
-                'tag': json.loads(data_table.tag),
+                'tags': json.loads(data_table.tag),
                 'loaddate': data_table.loaddate,
                 'fields': json.loads(data_table.fields),
+                'price': data_table.price,
             })
         return get_success_response({
             'data_table': data_tables,

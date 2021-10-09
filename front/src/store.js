@@ -15,72 +15,7 @@ const store = new Vuex.Store({
         operations: [],
         tableComponents: {},
         projectName: "Default",
-        datasetitems: [
-            {
-                name: 'Датасет 1',
-                description: 'Описание датасета 1',
-                source: 'vtb',
-                icon: 'default_dataset_icon.png',
-                size: '100000',
-                isfree: true,
-                tags: ['транзакции', '2021', 'втб', 'анонимизированный'],
-                loaddate: "2021-04-12",
-                fields: [
-                    {
-                        key: 'id',
-                        name: 'id (number)',
-                        socket: 'number',
-                    },
-                    {
-                        key: 'first_name',
-                        name: 'first_name (string)',
-                        socket: 'string',
-                    },
-                    {
-                        key: 'age',
-                        name: 'age (number)',
-                        socket: 'number',
-                    },
-                    {
-                        key: 'gender',
-                        name: 'gender (string)',
-                        socket: 'string',
-                    },
-                ]
-            },
-            {
-                name: 'Датасет 2',
-                description: 'Описание датасета 2',
-                source: 'datahub',
-                icon: 'default_dataset_icon.png',
-                size: '1000',
-                isfree: false,
-                tags: ['кредиты', '2019', 'анонимизированный'],
-                loaddate: "2020-11-15",
-                fields: [
-                    {
-                        key: 'id',
-                        name: 'id (number)',
-                        socket: 'number',
-                    },
-                    {
-                        key: 'user_id',
-                        name: 'user_id (number)',
-                        socket: 'number',
-                    },
-                    {
-                        key: 'balance',
-                        name: 'balance (number)',
-                        socket: 'number',
-                    },
-                    {
-                        key: 'date_update',
-                        name: 'date_update (date)',
-                        socket: 'date',
-                    },
-                ]
-            }
-        ]
+        datasetitems: []
     },
     getters: {
         selectedTables(state) {
@@ -130,6 +65,14 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        async setOperations(context) {
+            let response = (await http.getList('Operation', {}, true)).data.operations;
+            context.commit('setOperations', response);
+        },
+        async setDataSets(context) {
+            let response = (await http.getList('DataTable', {}, true)).data.data_tables;
+            context.commit('setDatasetItems', response);
+        },
         async addItem(context, data) {
             let item_data = data.data
             let mutation = data.mutation;

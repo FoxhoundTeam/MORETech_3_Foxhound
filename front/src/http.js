@@ -3,7 +3,8 @@ import Vue from 'vue';
 
 export default {
     urls: {
-        
+        Operation: '/graphs/operation',
+        DataTable: '/graphs/data_table'
     },
     getFilterValues: async function (filters) {
         var filter = "";
