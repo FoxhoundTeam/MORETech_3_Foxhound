@@ -17,7 +17,6 @@
     "rete-context-menu-plugin": "^0.6.0-rc.1",
     "rete-vue-render-plugin": "^0.4.0",
     "vue": "^2.6.11",
-    "vue-cookie": "^1.1.4",
     "vue-cookies": "^1.7.4",
     "vue-router": "^3.5.2",
     "vuetify": "^2.4.0",
