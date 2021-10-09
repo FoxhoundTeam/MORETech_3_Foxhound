@@ -41,10 +41,10 @@ class Feature(models.Model):
 
 
 class DataTable(models.Model):
-    name = models.CharField(max_length=40)
-    icon = models.CharField(max_length=256)
-    owner = models.CharField(max_length=256)
-    owner_icon = models.CharField(max_length=256)
+    title = models.CharField(max_length=40)
     description = models.TextField()
-    fields = models.TextField()
-    price = models.IntegerField()
+    icon = models.CharField(max_length=256)
+    source = models.CharField(max_length=256)
+    size = models.CharField(max_length=256)
+    tag = models.TextField()
+    loaddate = models.TextField()
