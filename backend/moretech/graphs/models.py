@@ -77,3 +77,11 @@ class DataTable(models.Model):
     description = models.TextField()
     columns = models.TextField()
     price = models.IntegerField()
+
+
+class JoinTable(models.Model):
+    name = models.CharField(max_length=40)
+    icon = models.CharField(max_length=256)
+    inputs = models.TextField()
+    outputs = models.TextField()
+    description = models.TextField()
