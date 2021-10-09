@@ -83,5 +83,5 @@ class JoinTable(models.Model):
     name = models.CharField(max_length=40)
     icon = models.CharField(max_length=256)
     inputs = models.TextField()
-    outputs = models.TextField()
+    outputs = models.CharField(max_length=1, choices=Type_OF_ELEMENTS)
     description = models.TextField()
