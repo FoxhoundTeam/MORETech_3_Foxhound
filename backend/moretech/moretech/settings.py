@@ -129,3 +129,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # OIDC settings
 LOGIN_URL = '/accounts/login/'
+OIDC_USERINFO = 'moretech.oidc_provider_settings.userinfo'
