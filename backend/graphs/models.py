@@ -33,3 +33,4 @@ class DataTable(models.Model):
     size = models.CharField(max_length=256)
     tag = models.TextField()
     loaddate = models.CharField(max_length=256)
+    fields = models.TextField()

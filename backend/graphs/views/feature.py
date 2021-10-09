@@ -1,12 +1,6 @@
 import json
 
-from django.shortcuts import render
-
-# Create your views here.
-from rest_framework.parsers import JSONParser
-from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
-from django.core import serializers
 
 from ..models import Feature
 from main.response_processing import get_success_response
