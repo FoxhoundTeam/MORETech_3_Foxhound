@@ -24,7 +24,7 @@ class UserView(APIView):
                 'price': function.price,
             })
         return get_success_response({
-            'functions': functions,
+            'feature': functions,
         })
 
     def post(self, request):
@@ -41,7 +41,7 @@ class UserView(APIView):
             price=price,
         )
         function.save()
-        get_success_response({
+        return get_success_response({
             "status": "ok",
         })
 
@@ -51,7 +51,7 @@ class UserView(APIView):
         data_ = data['data']
         user_id = data['user_id']
         price = data['price']
-        function = Feature.objects.filter(data['id'])[0]
+        function = Feature.objects.filter(id=data['id'])[0]
 
         function.name = name
         function.data = data_
@@ -60,6 +60,6 @@ class UserView(APIView):
 
         function.save()
 
-        get_success_response({
+        return get_success_response({
             "status": "ok",
         })

@@ -8,6 +8,13 @@ from rest_framework.views import APIView
 from ..models import Operation
 from main.response_processing import get_success_response
 
+data = {
+    'J': 'join',
+    'O': 'operation',
+    'F': 'filter',
+    'T': 'output',
+}
+
 
 class UserView(APIView):
     def get(self, request):
@@ -16,10 +23,10 @@ class UserView(APIView):
             operations.append({
                 'name': operation.name,
                 'icon': operation.icon,
-                'type_': operation.type_,
+                'type_': data.get(operation.type_element, 'join'),
                 'many': operation.many,
-                'inputs': json.load(operation.inputs),
-                'type_output': json.load(operation.outputs),
+                'inputs': json.loads(operation.inputs),
+                'type_output': json.loads(operation.outputs),
             })
         return get_success_response({
             'operations': operations,
