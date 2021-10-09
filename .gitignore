@@ -13,7 +13,6 @@ __pycache__
 env
 
 compose/mounts/*
-!compose/mounts/db
 
 # Log files
 npm-debug.log*
