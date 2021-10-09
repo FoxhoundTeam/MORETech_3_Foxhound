@@ -4,7 +4,8 @@ import Vue from 'vue';
 export default {
     urls: {
         Operation: '/graphs/operation',
-        DataTable: '/graphs/data_table'
+        DataTable: '/graphs/data_table',
+        Schema: '/graphs/json',
     },
     getFilterValues: async function (filters) {
         var filter = "";

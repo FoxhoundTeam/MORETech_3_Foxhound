@@ -15,7 +15,8 @@ const store = new Vuex.Store({
         operations: [],
         tableComponents: {},
         projectName: "Default",
-        datasetitems: []
+        datasetitems: [],
+        schemaResponse: {},
     },
     getters: {
         selectedTables(state) {
@@ -62,6 +63,9 @@ const store = new Vuex.Store({
         },
         setDatasetItems(state, items) {
             state.datasetitems = items;
+        },
+        setSchemaResponse(state, schema){
+            state.schemaResponse = schema;
         }
     },
     actions: {
@@ -70,7 +74,7 @@ const store = new Vuex.Store({
             context.commit('setOperations', response);
         },
         async setDataSets(context) {
-            let response = (await http.getList('DataTable', {}, true)).data.data_tables;
+            let response = (await http.getList('DataTable', {}, true)).data.data_table;
             context.commit('setDatasetItems', response);
         },
         async addItem(context, data) {

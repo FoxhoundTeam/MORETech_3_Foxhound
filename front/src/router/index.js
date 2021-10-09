@@ -45,6 +45,14 @@ let opts = {
           meta: {
             requiresAuth: false
           },
+        },
+        {
+          path: "result",
+          name: "ShowResult",
+          component: () => import('../components/modals/ModalShowSavedRes.vue'),
+          meta: {
+            requiresAuth: false
+          },
         }
       ]
     },

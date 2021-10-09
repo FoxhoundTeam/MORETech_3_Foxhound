@@ -96,7 +96,7 @@
         </v-list>
       </v-menu>
       <v-divider class="mx-5" vertical></v-divider>
-      <v-btn plain>Сохранить</v-btn>
+      <v-btn @click="saveSchema" plain>Сохранить</v-btn>
     </v-toolbar>
     <div ref="rete" style="height: 79vh"></div>
   </div>
@@ -107,6 +107,7 @@ import Rete from "rete";
 import ConnectionPlugin from "rete-connection-plugin";
 import VueRenderPlugin from "rete-vue-render-plugin";
 import AreaPlugin from "rete-area-plugin";
+import http from '../http';
 
 export default {
   data() {
@@ -128,10 +129,24 @@ export default {
     selectedTables() {
       return this.$store.getters.selectedTables;
     },
+    operations() {
+      return this.$store.state.operations;
+    }
   },
   watch: {
     async selectedTables() {
       await this.drawTables();
+    },
+    operations() {
+      let t = this;
+      this.operations.map((c) => {
+        try{
+          t.editor.register(c.component);
+          t.engine.register(c.component);
+        } catch {
+          console.log('already registered');
+        }
+      });
     },
   },
   async mounted() {
@@ -142,7 +157,7 @@ export default {
     this.editor.use(AreaPlugin);
     this.engine = new Rete.Engine(this.name + "@0.1.0");
     var t = this;
-    this.$store.state.operations.map((c) => {
+    this.operations.map((c) => {
       t.editor.register(c.component);
       t.engine.register(c.component);
     });
@@ -210,6 +225,12 @@ export default {
       await this.editor.addNode(node);
       this.drawedTables.push({name: table.name, node: node});
     },
+    async saveSchema(){
+      let schema = this.editor.toJSON();
+      let response = (await http.createItem('Schema', schema)).data;
+      this.$store.commit('setSchemaResponse', response);
+      this.$router.push({name: 'ShowResult'})
+    }
   },
 };
 </script>

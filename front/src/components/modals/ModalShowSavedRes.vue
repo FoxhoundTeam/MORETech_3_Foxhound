@@ -3,9 +3,9 @@
     <v-card>
       <template>
         <v-card-title>
-          <span class="text-h5">Выбрать датасет</span>
+          <span class="text-h5">Данные успешно обработаны</span>
         </v-card-title>
-        <v-card-text><data-set-collection/></v-card-text>
+        <v-card-text><vue-json-pretty :path="'res'" :data="$store.state.schemaResponse"> </vue-json-pretty></v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeModal()"> Ок </v-btn>
@@ -15,15 +15,18 @@
   </v-dialog>
 </template>
 <script>
-import DataSetCollection from '../DataSetCollection.vue';
+import VueJsonPretty from "vue-json-pretty";
+import "vue-json-pretty/lib/styles.css";
 export default {
-  components: { DataSetCollection },
+  components: {
+    VueJsonPretty,
+  },
   data() {
     return {};
   },
   computed: {
     show() {
-      return this.$route.name == "SelectDataset";
+      return this.$route.name == "ShowResult";
     },
   },
   methods: {

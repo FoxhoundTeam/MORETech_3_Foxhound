@@ -30,7 +30,7 @@
           </v-list-item-action>
           <v-list-item-icon class="mr-5">
             <v-badge
-              :value="item.isfree"
+              :value="!item.price"
               bottom
               avatar
               bordered
@@ -61,6 +61,7 @@
                 }}</v-chip>
               </template>
             </v-row>
+            <v-item>Цена: {{ item.price == 0 ? 'Бесплатно' : `${item.price} руб.`}}</v-item>
           </v-list-item-content>
         </v-list-item>
         <v-divider
@@ -106,7 +107,7 @@ export default {
               return tag_item.match(this.searchline.toLowerCase());
             }).length > 0) &&
           //item.tags.includes(this.searchline.toLowerCase() )
-          (item.isfree === true || item.isfree === this.searchfreeonly)
+          (item.price == 0 || (this.searchfreeonly ? item.price == 0 : true))
         );
       });
     },
