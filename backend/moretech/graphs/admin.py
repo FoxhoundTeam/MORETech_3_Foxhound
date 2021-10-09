@@ -6,7 +6,7 @@ from .models import DataTable, Feature, Operation
 
 @admin.register(DataTable)
 class DataTableRegistered(admin.ModelAdmin):
-    list_display = ("title", "source")
+    list_display = ("name", "source")
 
 
 @admin.register(Feature)
