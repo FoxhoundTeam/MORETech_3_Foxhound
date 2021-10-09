@@ -12,8 +12,8 @@ __pycache__
 .uwsgi.env
 env
 
-mounts
-!mounts/db
+compose/mounts/*
+!compose/mounts/db
 
 # Log files
 npm-debug.log*
