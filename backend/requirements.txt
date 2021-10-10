@@ -4,6 +4,7 @@ charset-normalizer==2.0.6
 Django==3.2.8
 django-filter==21.1
 djangorestframework==3.12.4
+django-oidc-provider==0.7.0
 idna==3.2
 ipython==7.27.0
 Markdown==3.3.4

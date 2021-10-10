@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oidc_provider',
     'rest_framework',
     'graphs',
 ]
@@ -127,3 +128,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = '/webapp/static'
+
+# OIDC settings
+LOGIN_URL = '/accounts/login/'
+OIDC_USERINFO = 'moretech.oidc_provider_settings.userinfo'
